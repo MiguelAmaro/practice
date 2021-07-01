@@ -1,0 +1,76 @@
+COMMENT ;
+
+Register Sizes:
+(letter)lx - 8  bits low
+(letter)hx - 8  bits high
+
+(letter)x - 16 bits low
+e(letter)x - 32 bits low
+r(letter)x - 64 bits low
+
+r(reg num)b  - 8  bits low
+r(reg num)w  - 16 bits low
+r(reg num)d  - 32 bits low
+r(reg num)   - 64 bits low
+
+Data Types:
+
+byte    - integer |  8  bits | twos-complement
+word    - integer | 16  bits | twos-complement
+dWord   - integer | 32  bits | twos-complement
+qWord   - integer | 64  bits | twos-complement
+
+real4   - real    | 32  bits | IEEE754
+real8   - real    | 64  bits | IEEE754
+resl10  - real    | 80  bits | IEEE754
+
+xmmword - ????    | 128 bits | simd
+ymmword - ????    | 128 bits | simd
+
+Pointers:
+
+byte  ptr
+word  ptr
+dword ptr
+qword ptr
+
+real4  ptr
+real8  ptr
+real10 ptr
+
+xmmword ptr
+ymmword ptr
+
+
+Dereference:
+
+byte   ptr [var_name]
+word   ptr [var_name]
+dword  ptr [var_name]
+qword  ptr [var_name]
+
+real4  ptr [var_name]
+real8  ptr [var_name]
+real10 ptr [var_name]
+
+Declaring variables
+
+DB or db - Define Byte.        8 bits
+DW or dw - Define Word.        Generally 2 bytes on a typical x86 32-bit system
+DD or dd - Define double word. Generally 4 bytes on a typical x86 32-bit system
+
+byte/BYTE is the same as db
+so, the following both declare an 8 bit integer(same is true for other types)
+mybyte byte 255
+mybyte db   255
+;
+
+
+COMMENT ;
+TIME: 30
+
+GOAL:
+Allocate a contiguous block of memory. Store hello world with the null terminator.
+
+LOG:
+;
