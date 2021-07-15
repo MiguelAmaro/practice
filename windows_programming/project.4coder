@@ -1,5 +1,5 @@
 version(2);
-project_name = "Simple Game Engine";
+project_name = "Windows Programming";
 
 patterns = {
     "*.c",
@@ -37,15 +37,6 @@ commands = {
         .cursor_at_end    = false,
     },
     
-    .assemble =
-    {
-        .win              = "assemble.bat",
-        .out              = "*compilation*",
-        .footer_panel     = true,
-        .save_dirty_files = true,
-        .cursor_at_end    = false,
-    },
-    
     .run =
     {
         .win              = "run.bat",
@@ -62,20 +53,11 @@ commands = {
         .cursor_at_end    = true,
     },
     
-    .debug_injected =
-    {
-        .win              = "debug.bat --injected",
-        .footer_panel     = false,
-        .save_dirty_files = false,
-        .cursor_at_end    = true,
-    },
 };
 
 fkey_command = {
     .F1 = "build",
-    .F2 = "assemble",
     .F3 = "build_injected",
-    .F4 = "debug_injected",
     
     .F12 = "run",
     .F11 = "debug",

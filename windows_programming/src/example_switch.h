@@ -1,7 +1,7 @@
 #ifndef EXAMPLE_SWITCH_H
 #define EXAMPLE_SWITCH_H
 
-#include "LAL.h"
+#include "base.h"
 
 global u32 g_selected_example = WIN32_EXAMPLE_SELECT;
 

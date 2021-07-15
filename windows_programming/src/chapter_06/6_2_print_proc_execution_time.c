@@ -9,7 +9,7 @@ union {		/* Structure required for file time arithmetic. */
 
 u32 print_proc_execution_time(arg_count, command_line[])
 {
-    STARTUPINFO startup_info;
+    STARTUPINFO         startup_info;
     PROCESS_INFORMATION proc_info;
     
     FILETIME kernel_time, userTime;

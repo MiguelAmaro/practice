@@ -1,11 +1,106 @@
 #include "stdio.h"
-#include "LAL.h"
+#include "base.h"
 
-#define WIN32_EXAMPLE_SELECT (122)
+#define WIN32_EXAMPLE_SELECT (0)
 #include "example_switch.h"
+
+#define EVALPRINTS32(x) printf("%s = %d\n"  , #x, (s32)(x))
+#define EVALPRINTS64(x) printf("%s = %lld\n", #x, (s64)(x))
+
+#define EVALPRINTU32(x) printf("%s = %u\n"  , #x, (u32)(x))
+#define EVALPRINTU64(x) printf("%s = %llu\n", #x, (u64)(x))
+
+#define EVALPRINTF64(x) printf("%s = %e [%f]\n", #x, (f64)(x), (f64)(x))
+
+
+typedef struct
+{
+    int a;
+    int b;
+    int c;
+    int d;
+} test; 
 
 u32 main(u32 arg_count, u8 *command_line[])
 {
+    //~ BASE TESTING
+    printf("cl      = %d\n", COMPILER_CL    );
+    printf("clang   = %d\n", COMPILER_CLANG );
+    printf("gcc     = %d\n", COMPILER_GCC   );
+    printf("windows = %d\n", OS_WINDOWS );
+    printf("linux   = %d\n", OS_LINUX   );
+    printf("mac     = %d\n", OS_MAC     );
+    printf("x64     = %d\n", ARCH_X64   );
+    printf("x86     = %d\n", ARCH_X86   );
+    printf("arm32   = %d\n", ARCH_ARM32 );
+    printf("arm64   = %d\n", ARCH_ARM64 );
+    
+    int foo[100];
+    
+    
+    for(int i = 0; i < ARRAY_COUNT(foo); i += 1 )
+    {
+        foo[i] = i;
+    }
+    
+    int bar[100];
+    MEMORY_COPY_ARRAY(bar, foo);
+    EVALPRINTS32(bar[50]);
+    EVALPRINTS32(MEMORY_MATCH(foo, bar, sizeof(foo)));
+    MEMORY_ZERO_ARRAY(bar);
+    EVALPRINTS32(bar[50]);
+    EVALPRINTS32(MEMORY_MATCH(foo, bar, sizeof(foo)));
+    
+    EVALPRINTS32(MEMBER_OFFSET(test, a));
+    EVALPRINTS32(MEMBER_OFFSET(test, b));
+    EVALPRINTS32(MEMBER_OFFSET(test, c));
+    EVALPRINTS32(MEMBER_OFFSET(test, d));
+    
+    EVALPRINTS32(min_s8);
+    EVALPRINTS32(min_s16);
+    EVALPRINTS32(min_s32);
+    EVALPRINTS64(min_s64);
+    
+    EVALPRINTS32(max_s8);
+    EVALPRINTS32(max_s16);
+    EVALPRINTS32(max_s32);
+    EVALPRINTS64(max_s64);
+    
+    EVALPRINTU32(max_u8);
+    EVALPRINTU32(max_u16);
+    EVALPRINTU32(max_u32);
+    EVALPRINTU64(max_u64);
+    
+    EVALPRINTF64(f32_infinity());
+    EVALPRINTF64(f32_infinity_negative());
+    
+    EVALPRINTF64(f32_infinity());
+    EVALPRINTF64(f32_infinity_negative());
+    
+    
+    EVALPRINTF64(f32_sqrt(100.0f));
+    EVALPRINTF64(f32_sin(tau_f32 * 0.3f));
+    EVALPRINTF64(f32_cos(tau_f32 * 0.3f));
+    EVALPRINTF64(f32_tan(0.5f));
+    
+    
+    EVALPRINTF64(f64_sqrt(100.0));
+    EVALPRINTF64(f64_sin(tau_f64 * 0.3));
+    EVALPRINTF64(f64_cos(tau_f64 * 0.3));
+    EVALPRINTF64(f64_tan(0.5));
+    
+    EVALPRINTF64(lerp(0.0f, 0.3f, 1.0f));
+    EVALPRINTF64(lerp(10.0f, 0.5f, 100.0f));
+    EVALPRINTF64(lerp(0.0f, 0.3f, 1.0f));
+    EVALPRINTF64(unlerp(10.0f, unlerp(10.0f, 0.5f, 100.0f), 1.0f));
+    
+    
+    ASSERT(1);
+    ASSERT(50 < 100 );
+    
+    printf("hello world");
+    
+    
     //~ WIN 32 PROGRAMMING
     
     // NOTE(MIGUEL): ANSI

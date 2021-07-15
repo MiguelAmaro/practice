@@ -39,8 +39,8 @@ u32 options(u32 arg_count, u8 *command_line[], u8 *options_set, ...)
              !(*flag) && (arg_index < arg_count) && (command_line [arg_index] [0] == '-'); 
              arg_index++)
         {
-            b32 *result = memchr(       command_line[ arg_index]  ,
-                                 options_set        [flag_index]  ,
+            b32 *result = memchr(command_line[ arg_index]  ,
+                                 options_set [flag_index]  ,
                                  strlen(command_line[ arg_index]));
             
             *flag = result != NULLPTR;

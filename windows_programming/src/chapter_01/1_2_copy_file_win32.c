@@ -1,18 +1,3 @@
-//************************************************************
-// TIME: 30 min
-// 
-// GOAL:
-// Create a function that copies a file using the win32 api
-// 
-// Use the timep.exe in Dev\Study\WindowSystemsProgramming to time-
-// this funciton and compare it with the other copy fucntions when 
-// handling large files
-//
-// LOG:
-// 4/1/2021 - folllowing the windows systems programming book
-//
-// ************************************************************
-
 #include <windows.h>
 #include <stdio.h>
 #include "LAL.h"
