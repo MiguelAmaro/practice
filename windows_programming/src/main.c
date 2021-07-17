@@ -1,5 +1,7 @@
 #include "stdio.h"
-#include "base.h"
+
+#include "base_includes.h"
+#include "base_includes.c"
 
 #define WIN32_EXAMPLE_SELECT (0)
 #include "example_switch.h"
