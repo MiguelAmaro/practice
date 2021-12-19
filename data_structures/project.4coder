@@ -1,5 +1,5 @@
 version(2);
-project_name = "Simple Game Engine";
+project_name = "Data Structures";
 
 patterns = {
     "*.c",

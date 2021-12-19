@@ -2,6 +2,8 @@
 
 #ifndef BINARY_TREE_H
 #define BINARY_TREE_H
+#include "memory.h"
+#include "types.h"
 
 //************************************************************
 // TIME: 30 min
@@ -20,23 +22,18 @@
 //
 // ************************************************************
 
-typedef struct Bt_node Bt_node;
-struct Bt_node
+typedef struct bt_node bt_node;
+struct bt_node
 {
     u32 data;
-    Bt_node *left;
-    Bt_node *right;
+    bt_node *left;
+    bt_node *right;
 };
 
-typedef struct Bt Bt;
-struct Bt
+void BinaryTreeInit(bt_node *this, memory_arena *Arena)
 {
+    this = (bt_node *)MEMORY_ARENA_PUSH_STRUCT(Arena, bt_node);
     
-    
-}
-
-void binary_tree_init(Bt_node *this)
-{
     this->left  = NULLPTR;
     this->right = NULLPTR;
     this->data  = 0;
@@ -44,19 +41,19 @@ void binary_tree_init(Bt_node *this)
     return;
 }
 
-void binary_tree_insert(Bt_node *this, u32 data, Bt_node *memory)
+void BinaryTreeInsert(bt_node *this, u32 data, memory_arena *Arena)
 {
-    Bt_node *target = this;
+    bt_node *target = this;
     
     while(target != NULLPTR)
     {
-        if(target.left)
+        if(target->left)
         {
-            target = target.left;
+            target = target->left;
         }
-        else if(target.right)
+        else if(target->right)
         {
-            target = target.right;
+            target = target->right;
         }
         else
         {
@@ -67,7 +64,7 @@ void binary_tree_insert(Bt_node *this, u32 data, Bt_node *memory)
     return;
 }
 
-void binary_tree_print_fot(Bt_node *this)
+void BinaryTreePrint1(bt_node *this)
 {
     
     

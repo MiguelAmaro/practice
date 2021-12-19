@@ -1,4 +1,4 @@
-#include "LAL.h"
+#include "types.h"
 
 void quick_sort (s32 array[], s32 count, s32 low_index, s32 high_index);
 s32  partition  (s32 array[], s32 count, s32 low_index, s32 high_index);

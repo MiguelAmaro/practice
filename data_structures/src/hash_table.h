@@ -1,4 +1,4 @@
-#include "LAL.h"
+#include "types.h"
 #include <string.h>
 // NOTE(MIGUEL): Reference https://benhoyt.com/writings/hash-table-in-c/
 
@@ -66,7 +66,7 @@ b32 ht_next(hti* it);
 
 
 //~ SOURCE
-item *linear_search(item *items, u32 size, readonly u8 *key)
+item *linear_search(item *items, u32 size, u8 *key)
 {
     for (u32 i = 0; i < size; i++)
     {

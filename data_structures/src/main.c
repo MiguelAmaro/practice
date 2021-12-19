@@ -3,45 +3,56 @@
 // C STD Library
 #include "stdio.h"
 
-#include "LAL.h"
-#include "memory_arena.h"
+#include "types.h"
+
+#define U32_MAX (0xFFffffff)
 
 #include "binary_tree.h" 
 #include "hash_table.h"
 #include "linked_list.h"
 //Algorithms
 #include "quick_sort.c"
+#include "memory.h"
+#include "disjointsets.h"
 
 u32 main(u32 arg_count, u8 *command_line[])
 {
+    u32    MemoryBlockSize = KILOBYTES(4);
+    LPVOID MemoryBlock     = VirtualAlloc(MemoryBlock,
+                                          MemoryBlockSize,
+                                          MEM_COMMIT | MEM_RESERVE,
+                                          PAGE_READWRITE);
+    
+    memory_arena Arena;
+    MemoryArenaInit(&Arena, MemoryBlockSize, MemoryBlock);
+    
     //~ QUICK SORT
-    /*
+#if 0
     s32 array[] = { 1, 5, 33, 52, 10, 3, 9, 2, 4, 3 };
     s32 array_len = sizeof(array) / sizeof(array[0]);
-        
+    
     //array_print(array, array_len);
     quick_sort(array, array_len, 0, array_len - 1);
-    */
+#endif
     
 	//~ BINARY TREE
+#if 0
+    bt_node *BtRoot;
+    BinaryTreeInit  (BtRoot, &Arena);
+    BinaryTreeInsert(BtRoot, 2, &Arena);
+#endif
+    //~ DISJOINT SETS
+    u32 Edges[][2] = 
+    {
+        {0, 1}, {0, 2}, {1, 3},
+        {4, 8}, {5, 6}, {5, 7},
+    };
     
-    memory_arena arena;
-    LPVOID memory_block = NULLPTR;
-    u32    memory_block_size = KILOBYTES(4);
+    ds DSet;
+    DSet.NodeCount = 10;
+    DSet.RelTable = MEMORY_ARENA_PUSH_ARRAY(&Arena, DSet.NodeCount, u32);
     
-    VirtualAlloc(memory_block,
-                 memory_block_size,
-                 MEM_COMMIT | MEM_RESERVE,
-                 PAGE_READWRITE);
-    
-    
-    memory_arena_init(&arena, memory_block_size, memory_block);
-    
-    Bt_node *bt_root = MEMORY_ARENA_PUSH_STRUCT(memory_block, Bt_node);
-    
-    binary_tree_init  (bt_root);
-    binary_tree_insert(bt_root, 2);
-    
+    DSInit(&DSet, Edges, ARRAY_COUNT(Edges,));
     
     //~ HASH TABLES
     
