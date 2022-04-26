@@ -247,8 +247,8 @@ f32_abs(f32 x)
 {
     union
     { 
-        f64 f;
-        u64 u;
+        f32 f;
+        u32 u;
     } r;
     
     r.u &= 0x7fffffff;

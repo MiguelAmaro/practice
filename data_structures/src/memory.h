@@ -50,6 +50,8 @@ void *MemoryCopy(void *DestInit, void *SourceInit, size_t Size)
 void
 MemoryArenaInit(memory_arena *Arena, size_t Size, void *BasePtr)
 {
+    ASSERT(BasePtr);
+    
     Arena->BasePtr = BasePtr;
     Arena->Size    = Size;
     Arena->Used    = 0;

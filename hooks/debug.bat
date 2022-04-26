@@ -1,6 +1,6 @@
 @ECHO OFF
 
-SET DEBUG_FILE= .\debug\practice.rdbg
+SET DEBUG_FILE= .\debug\debug.rdbg
 SET EXECUTABLE= .\build\practice.exe
 
 

@@ -7,57 +7,113 @@ typedef struct ds ds;
 struct ds
 {
     u32 NodeCount;
-    u32 *RelTable;
+    u32 *Root;
+    u32 *Parent;
+    u32 *Rank; // NOTE(MIGUEL): Height
 };
 
-u32 Find(ds *DSet, u32 Node)
+u32 GetRoot(ds *DSet, u32 Node)
 {
-    return DSet->RelTable[Node];
+    return DSet->Root[Node];
 }
 
-void UnionFind(ds *DSet, u32 x, u32 y) 
+u32 GetParentNode(ds *DSet, u32 Node)
 {
-    u32 NodeA = Find(x);
-    u32 NodeB = Find(y);
-    
-    if (NodeA != NodeB)
-    {
-        for (u32 Node = 0; Node < DSet->NodeCount; Node++)
-        {
-            Nodef (DSet->RelTable[Node] == NodeB) 
-            {
-                DSet->RelTable[Node] = NodeA;
-            }
-        }
-    }
+    return DSet->Parent[Node];
 }
 
-b32 DSInit(ds *DSet, u32 Edges[][2], u32 EdgeCount)
-{ 
-    MemorySetTo(U32_MAX, &DSet->RelTable, DSet->NodeCount);
+void Union(ds *DSet, u32 x, u32 y)
+{
+    u32 RootX = 0;
+    u32 RootY = 0;
     
-    for(u32 Edge = 0; Edge < EdgeCount; Edge++)
+    // NOTE(MIGUEL): Rank
+    RootX = GetRoot(DSet, x);
+    RootY = GetRoot(DSet, y);
+    
+    if (RootX != RootY) // NOTE(MIGUEL): Check to see if its already in the set.
     {
-        u32 NodeA = Edges[i][0];
-        u32 NodeB = Edges[i][1];
-        
-        if(DSet->RelTable[NodeA] == NodeA )
+        if(DSet->Rank[RootX] > DSet->Rank[RootY])
         {
-            
-            
+            DSet->Root[RootY] = RootX;
+            DSet->Parent[y]   = x;
         }
-        
-        
-        DSet.RelTable[NodeA] = NodeA;
-        DSet.RelTable[NodeB] = NodeA;
+        else if(DSet->Rank[RootX] < DSet->Rank[RootY])
+        {
+            DSet->Root[RootX] = RootY;
+            DSet->Parent[x]   = y;
+        }
+        else
+        {
+            DSet->Root[RootY] = RootX;
+            DSet->Parent[y]   = x;
+            DSet->Rank[RootX] += 1;
+        }
     }
     
     return;
 }
 
+// NOTE(MIGUEL): Returns Root - O(N)
+u32 UnionFind(ds *DSet, u32 x, u32 y) 
+{
+    u32 NodeA = GetRoot(DSet, x);
+    u32 NodeB = GetRoot(DSet, y);
+    
+    if (NodeA != NodeB)
+    {
+        for (u32 Node = 0; Node < DSet->NodeCount; Node++)
+        {
+            if(DSet->Root[Node] == NodeB) 
+            {
+                DSet->Root[Node] = NodeA;
+            }
+        }
+    }
+    
+    return;
+}
+
+b32 IsConnected(ds *DSet, u32 x, u32 y)
+{
+    return GetRoot(DSet, x) == GetRoot(DSet, y);
+}
+
+void DSInit(ds *DSet)
+{ 
+    // NOTE(MIGUEL): Initialize all node to be the root nodes of themselves.
+    for(u32 Node = 0; Node < DSet->NodeCount; Node++)
+    {
+        DSet->Root  [Node] = Node;
+        DSet->Parent[Node] = Node;
+        DSet->Rank  [Node] = 1; // NOTE(MIGUEL): Height of each tree
+    }
+    
+    return;
+}
+
+#if 0
 b32 DSQuickFind()
 {
     
+    
+    return;
+}
+#endif
+
+void PrintDisjointSet(ds *DSet)
+{
+    
+    for(u32 Node = 0; Node < DSet->NodeCount; Node++)
+    {
+        printf("Node %d -> Root: %d | "
+               "Height: %d | "
+               "Parent: %d \n",
+               Node,
+               DSet->Root[Node],
+               DSet->Rank[Node],
+               DSet->Parent[Node]);
+    }
     
     return;
 }

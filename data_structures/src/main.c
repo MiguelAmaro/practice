@@ -50,9 +50,69 @@ u32 main(u32 arg_count, u8 *command_line[])
     
     ds DSet;
     DSet.NodeCount = 10;
-    DSet.RelTable = MEMORY_ARENA_PUSH_ARRAY(&Arena, DSet.NodeCount, u32);
+    DSet.Root   = MEMORY_ARENA_PUSH_ARRAY(&Arena, DSet.NodeCount, u32);
+    DSet.Parent = MEMORY_ARENA_PUSH_ARRAY(&Arena, DSet.NodeCount, u32);
+    DSet.Rank   = MEMORY_ARENA_PUSH_ARRAY(&Arena, DSet.NodeCount, u32);
     
-    DSInit(&DSet, Edges, ARRAY_COUNT(Edges,));
+    
+    DSInit(&DSet);
+    Union(&DSet, 0, 1);
+    Union(&DSet, 0, 2);
+    Union(&DSet, 1, 3);
+    Union(&DSet, 4, 8);
+    Union(&DSet, 5, 6);
+    Union(&DSet, 5, 7);
+    
+    PrintDisjointSet(&DSet);
+    printf("\n\n");
+    
+    
+    DSInit(&DSet);
+    Union(&DSet, 0, 1);
+    Union(&DSet, 0, 2);
+    Union(&DSet, 1, 3);
+    Union(&DSet, 4, 8);
+    Union(&DSet, 5, 6);
+    Union(&DSet, 5, 7);
+    
+    
+    PrintDisjointSet(&DSet);
+    
+    u8 Success[] = "Success!";
+    u8 Failed [] = "Failed!";
+    
+    u8 *Result;
+    Result = IsConnected(&DSet, 1, 5) == 1?Success:Failed;
+    printf("Test:[%d, %d] %s \n", 1, 5, Result);
+    Result = IsConnected(&DSet, 5, 7) == 1?Success:Failed;
+    printf("Test:[%d, %d] %s \n", 5, 7, Result);
+    Result = IsConnected(&DSet, 4, 9) == 0?Success:Failed;
+    printf("Test:[%d, %d] %s \n", 4, 9, Result);
+    
+    Union(&DSet, 9, 4);
+    Result = IsConnected(&DSet, 9, 4) == 1?Success:Failed;
+    printf("Test:[%d, %d] %s \n", 9,4, Result);
+    
+    DSInit(&DSet);
+    Union(&DSet, 0, 1);
+    Union(&DSet, 0, 2);
+    Union(&DSet, 0, 3);
+    Union(&DSet, 0, 4);
+    Union(&DSet, 0, 5);
+    Union(&DSet, 0, 6);
+    Union(&DSet, 0, 7);
+    PrintDisjointSet(&DSet);
+    
+    DSInit(&DSet);
+    Union(&DSet, 5, 6);
+    
+    Union(&DSet, 0, 4);
+    Union(&DSet, 0, 1);
+    Union(&DSet, 1, 2);
+    Union(&DSet, 1, 3);
+    PrintDisjointSet(&DSet);
+    
+    
     
     //~ HASH TABLES
     
